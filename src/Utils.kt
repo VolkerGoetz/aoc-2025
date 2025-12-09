@@ -33,6 +33,9 @@ data class Point(val x: Int, val y: Int) : Comparable<Point> {
     override fun toString() = "$x/$y"
 }
 
+fun String.toPoint() =
+    split(',').map { it.toInt() }.let { Point(it[0], it[1]) }
+
 data class Direction(val dx: Int, val dy: Int) {
     companion object {
         val North = Direction(0, -1)
