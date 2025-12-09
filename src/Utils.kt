@@ -3,6 +3,8 @@ import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readText
 import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * Reads lines from the given input txt file.
@@ -66,6 +68,18 @@ operator fun Point.times(that: Int): Point =
 
 fun Point.manhattanDistTo(other: Point): Int =
     abs(x - other.x) + abs(y - other.y)
+
+data class Point3D(val x: Int, val y: Int, val z: Int) {
+
+    override fun toString() = "Point3D($x/$y/$z)"
+}
+
+fun String.toPoint3D() =
+    split(',').map { it.toInt() }.let { Point3D(it[0], it[1], it[2]) }
+
+
+fun Point3D.distanceTo(other: Point3D) =
+    sqrt((x - other.x).toDouble().pow(2) + (y - other.y).toDouble().pow(2) + (z - other.z).toDouble().pow(2))
 
 open class Grid<T>(lines: List<String>, producer: (Char) -> T) : ArrayList<ArrayList<T>>() {
     val gridSize: Point
